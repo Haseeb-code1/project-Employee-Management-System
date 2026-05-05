@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-2">
+    <h2>Employees</h2>
+    <button class="btn btn-primary" onclick="toggleForm('addEmployeeForm')">Add Employee</button>
+</div>
+
+<div id="addEmployeeForm" class="form-container">
+    <h3>Add New Employee</h3>
+    <form method="POST" action="{{ url_for('create_employee') }}">
+        <input type="text" name="name" placeholder="Full Name" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="text" name="phone" placeholder="Phone Number" required>
+        <select name="department_id" required>
+            <option value="" disabled selected>Select Department</option>
+            {% for dept in departments %}
+            <option value="{{ dept.id }}">{{ dept.name }}</option>
+            {% endfor %}
+        </select>
+        <input type="number" step="0.01" name="salary" placeholder="Salary" required>
+        <button type="submit" class="btn btn-success">Save Employee</button>
+        <button type="button" class="btn btn-danger" onclick="toggleForm('addEmployeeForm')">Cancel</button>
+    </form>
+</div>
+
+<div class="card">
+<div class="table-responsive">
+    <table id="empTable">
+        <thead>
+            <tr>
+                <th onclick="sortTable(0, 'empTable')">ID ↕</th>
+                <th onclick="sortTable(1, 'empTable')">Name ↕</th>
+                <th onclick="sortTable(2, 'empTable')">Email ↕</th>
+                <th onclick="sortTable(3, 'empTable')">Phone ↕</th>
+                <th onclick="sortTable(4, 'empTable')">Department ↕</th>
+                <th onclick="sortTable(5, 'empTable')">Salary ↕</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for emp in employees %}
+            <tr>
+                <td>{{ emp.id }}</td>
+                <td>{{ emp.name }}</td>
+                <td>{{ emp.email }}</td>
+                <td>{{ emp.phone }}</td>
+                <td>{{ emp.department }}</td>
+                <td>{{ emp.salary }}</td>
+                <td>
+                    <button class="btn btn-warning" onclick="toggleForm('editEmployeeForm-{{ emp.id }}')">Edit</button>
+                    <form method="POST" action="{{ url_for('remove_employee', id=emp.id) }}" style="display:inline;">
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this employee?');">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            <tr id="editEmployeeForm-{{ emp.id }}" class="form-container" style="display:none;">
+                <td colspan="7">
+                    <form method="POST" action="{{ url_for('edit_employee', id=emp.id) }}">
+                        <input type="text" name="name" value="{{ emp.name }}" required>
+                        <input type="email" name="email" value="{{ emp.email }}" required>
+                        <input type="text" name="phone" value="{{ emp.phone }}" required>
+                        <select name="department_id" required>
+                            {% for dept in departments %}
+                            <option value="{{ dept.id }}" {% if dept.name == emp.department %}selected{% endif %}>{{ dept.name }}</option>
+                            {% endfor %}
+                        </select>
+                        <input type="number" step="0.01" name="salary" value="{{ emp.salary }}" required>
+                        <button type="submit" class="btn btn-success">Update</button>
+                        <button type="button" class="btn btn-danger" onclick="document.getElementById('editEmployeeForm-{{ emp.id }}').style.display='none'">Cancel</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+</div>
+{% endblock %}

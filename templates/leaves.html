@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-2">
+    <h2>Leave Applications</h2>
+    <button class="btn btn-primary" onclick="toggleForm('addLeaveForm')">Apply for Leave</button>
+</div>
+
+<div id="addLeaveForm" class="form-container">
+    <h3>Apply for Leave</h3>
+    <form method="POST" action="{{ url_for('create_leave') }}">
+        <select name="employee_id" required>
+            <option value="" disabled selected>Select Employee</option>
+            {% for emp in employees %}
+            <option value="{{ emp.id }}">{{ emp.name }}</option>
+            {% endfor %}
+        </select>
+        <label>Start Date</label>
+        <input type="date" name="start_date" required>
+        <label>End Date</label>
+        <input type="date" name="end_date" required>
+        <button type="submit" class="btn btn-success">Submit</button>
+        <button type="button" class="btn btn-danger" onclick="toggleForm('addLeaveForm')">Cancel</button>
+    </form>
+</div>
+
+<div class="card">
+<div class="table-responsive">
+    <table id="leaveTable">
+        <thead>
+            <tr>
+                <th onclick="sortTable(0, 'leaveTable')">ID ↕</th>
+                <th onclick="sortTable(1, 'leaveTable')">Employee ↕</th>
+                <th onclick="sortTable(2, 'leaveTable')">Start Date ↕</th>
+                <th onclick="sortTable(3, 'leaveTable')">End Date ↕</th>
+                <th onclick="sortTable(4, 'leaveTable')">Status ↕</th>
+                {% if session.get('role') in ['Admin', 'HR'] %}
+                <th>Actions</th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for rec in records %}
+            <tr>
+                <td>{{ rec.id }}</td>
+                <td>{{ rec.employee_name }}</td>
+                <td>{{ rec.start_date }}</td>
+                <td>{{ rec.end_date }}</td>
+                <td>{{ rec.status }}</td>
+                {% if session.get('role') in ['Admin', 'HR'] %}
+                <td>
+                    {% if rec.status == 'Pending' %}
+                    <form method="POST" action="{{ url_for('modify_leave', id=rec.id) }}" style="display:inline;">
+                        <input type="hidden" name="status" value="Approved">
+                        <button type="submit" class="btn btn-success" style="padding: 5px 10px; font-size: 0.9em;">Approve</button>
+                    </form>
+                    <form method="POST" action="{{ url_for('modify_leave', id=rec.id) }}" style="display:inline;">
+                        <input type="hidden" name="status" value="Rejected">
+                        <button type="submit" class="btn btn-danger" style="padding: 5px 10px; font-size: 0.9em;">Reject</button>
+                    </form>
+                    {% endif %}
+                </td>
+                {% endif %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+</div>
+{% endblock %}

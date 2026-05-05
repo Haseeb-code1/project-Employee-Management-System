@@ -17,7 +17,7 @@ class DepartmentView(ctk.CTkFrame):
         form_frame = ctk.CTkFrame(self)
         form_frame.pack(fill='x', pady=10)
 
-        self.ent_name = ctk.CTkEntry(form_frame, placeholder_text='Department Name', width=300)
+        self.ent_name = ctk.CTkEntry(form_frame, fg_color="#add8e6", text_color="black", placeholder_text_color="#444444", placeholder_text='Department Name', width=300)
         self.ent_name.pack(side='left', padx=20, pady=20)
 
         btn_frame = ctk.CTkFrame(self, fg_color='transparent')

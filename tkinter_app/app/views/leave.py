@@ -17,13 +17,13 @@ class LeaveView(ctk.CTkFrame):
         form_frame = ctk.CTkFrame(self)
         form_frame.pack(fill='x', pady=10)
 
-        self.ent_emp = ctk.CTkEntry(form_frame, placeholder_text='Emp ID', width=120)
+        self.ent_emp = ctk.CTkEntry(form_frame, fg_color="#add8e6", text_color="black", placeholder_text_color="#444444", placeholder_text='Emp ID', width=120)
         self.ent_emp.grid(row=0, column=0, padx=10, pady=10)
 
-        self.ent_start = ctk.CTkEntry(form_frame, placeholder_text='Start Date', width=120)
+        self.ent_start = ctk.CTkEntry(form_frame, fg_color="#add8e6", text_color="black", placeholder_text_color="#444444", placeholder_text='Start Date', width=120)
         self.ent_start.grid(row=0, column=1, padx=10, pady=10)
 
-        self.ent_end = ctk.CTkEntry(form_frame, placeholder_text='End Date', width=120)
+        self.ent_end = ctk.CTkEntry(form_frame, fg_color="#add8e6", text_color="black", placeholder_text_color="#444444", placeholder_text='End Date', width=120)
         self.ent_end.grid(row=0, column=2, padx=10, pady=10)
 
         ctk.CTkButton(form_frame, text='Apply', command=self.apply, width=100).grid(row=0, column=3, padx=10, pady=10)

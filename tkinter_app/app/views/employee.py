@@ -17,19 +17,19 @@ class EmployeeView(ctk.CTkFrame):
         form_frame = ctk.CTkFrame(self)
         form_frame.pack(fill='x', pady=10)
 
-        self.ent_name = ctk.CTkEntry(form_frame, placeholder_text='Name', width=180)
+        self.ent_name = ctk.CTkEntry(form_frame, fg_color="#add8e6", text_color="black", placeholder_text_color="#444444", placeholder_text='Name', width=180)
         self.ent_name.grid(row=0, column=0, padx=10, pady=10)
 
-        self.ent_email = ctk.CTkEntry(form_frame, placeholder_text='Email', width=180)
+        self.ent_email = ctk.CTkEntry(form_frame, fg_color="#add8e6", text_color="black", placeholder_text_color="#444444", placeholder_text='Email', width=180)
         self.ent_email.grid(row=0, column=1, padx=10, pady=10)
 
-        self.ent_phone = ctk.CTkEntry(form_frame, placeholder_text='Phone', width=180)
+        self.ent_phone = ctk.CTkEntry(form_frame, fg_color="#add8e6", text_color="black", placeholder_text_color="#444444", placeholder_text='Phone', width=180)
         self.ent_phone.grid(row=0, column=2, padx=10, pady=10)
 
-        self.ent_dept = ctk.CTkEntry(form_frame, placeholder_text='Dept ID', width=180)
+        self.ent_dept = ctk.CTkEntry(form_frame, fg_color="#add8e6", text_color="black", placeholder_text_color="#444444", placeholder_text='Dept ID', width=180)
         self.ent_dept.grid(row=1, column=0, padx=10, pady=10)
 
-        self.ent_salary = ctk.CTkEntry(form_frame, placeholder_text='Salary', width=180)
+        self.ent_salary = ctk.CTkEntry(form_frame, fg_color="#add8e6", text_color="black", placeholder_text_color="#444444", placeholder_text='Salary', width=180)
         self.ent_salary.grid(row=1, column=1, padx=10, pady=10)
 
         btn_frame = ctk.CTkFrame(self, fg_color='transparent')

@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-2">
+    <h2>Payroll Records</h2>
+    <button class="btn btn-primary" onclick="toggleForm('addPayrollForm')">Add Payroll</button>
+</div>
+
+<div id="addPayrollForm" class="form-container">
+    <h3>Add Payroll Record</h3>
+    <form method="POST" action="{{ url_for('create_payroll') }}">
+        <select name="employee_id" required>
+            <option value="" disabled selected>Select Employee</option>
+            {% for emp in employees %}
+            <option value="{{ emp.id }}">{{ emp.name }}</option>
+            {% endfor %}
+        </select>
+        <input type="number" step="0.01" name="salary" placeholder="Base Salary" required>
+        <input type="number" step="0.01" name="bonus" placeholder="Bonus" required>
+        <input type="number" step="0.01" name="deductions" placeholder="Deductions" required>
+        <input type="text" name="month_year" placeholder="Month/Year (e.g., 2023-10)" required>
+        <button type="submit" class="btn btn-success">Save</button>
+        <button type="button" class="btn btn-danger" onclick="toggleForm('addPayrollForm')">Cancel</button>
+    </form>
+</div>
+
+<div class="card">
+<div class="table-responsive">
+    <table id="payrollTable">
+        <thead>
+            <tr>
+                <th onclick="sortTable(0, 'payrollTable')">ID ↕</th>
+                <th onclick="sortTable(1, 'payrollTable')">Employee ↕</th>
+                <th onclick="sortTable(2, 'payrollTable')">Salary ↕</th>
+                <th onclick="sortTable(3, 'payrollTable')">Bonus ↕</th>
+                <th onclick="sortTable(4, 'payrollTable')">Deductions ↕</th>
+                <th onclick="sortTable(5, 'payrollTable')">Net Pay ↕</th>
+                <th onclick="sortTable(6, 'payrollTable')">Month/Year ↕</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for rec in records %}
+            <tr>
+                <td>{{ rec.id }}</td>
+                <td>{{ rec.employee_name }}</td>
+                <td>{{ rec.salary }}</td>
+                <td>{{ rec.bonus }}</td>
+                <td>{{ rec.deductions }}</td>
+                <td>{{ rec.net_pay }}</td>
+                <td>{{ rec.month_year }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+</div>
+{% endblock %}

@@ -17,13 +17,13 @@ class AttendanceView(ctk.CTkFrame):
         form_frame = ctk.CTkFrame(self)
         form_frame.pack(fill='x', pady=10)
 
-        self.ent_emp = ctk.CTkEntry(form_frame, placeholder_text='Emp ID', width=150)
+        self.ent_emp = ctk.CTkEntry(form_frame, fg_color="#add8e6", text_color="black", placeholder_text_color="#444444", placeholder_text='Emp ID', width=150)
         self.ent_emp.pack(side='left', padx=10, pady=10)
 
-        self.ent_date = ctk.CTkEntry(form_frame, placeholder_text='Date YYYY-MM-DD', width=150)
+        self.ent_date = ctk.CTkEntry(form_frame, fg_color="#add8e6", text_color="black", placeholder_text_color="#444444", placeholder_text='Date YYYY-MM-DD', width=150)
         self.ent_date.pack(side='left', padx=10, pady=10)
 
-        self.ent_status = ctk.CTkComboBox(form_frame, values=['Present', 'Absent', 'Half Day', 'Leave'], width=150)
+        self.ent_status = ctk.CTkComboBox(form_frame, fg_color="#add8e6", text_color="black", values=['Present', 'Absent', 'Half Day', 'Leave'], width=150)
         self.ent_status.pack(side='left', padx=10, pady=10)
 
         ctk.CTkButton(form_frame, text='Mark', command=self.add, width=100).pack(side='left', padx=10, pady=10)
