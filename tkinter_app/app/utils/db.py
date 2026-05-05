@@ -1,18 +1,24 @@
+import os
 import pyodbc
 
 class DatabaseContext:
-    def __init__(self, server="DESKTOP-G6B47CF", database="ems_db"):
-        self.server = server
-        self.database = database
+    def __init__(self):
+        self.server = os.environ.get("DB_SERVER", "DESKTOP-G6B47CF")
+        self.database = os.environ.get("DB_NAME", "ems_db")
+        self.user = os.environ.get("DB_USER", "")
+        self.password = os.environ.get("DB_PASSWORD", "")
         self.connection = None
 
     def __enter__(self):
         try:
-            conn_str = f"DRIVER={{SQL Server}};SERVER={self.server};DATABASE={self.database};Trusted_Connection=yes;"
+            if self.user and self.password:
+                conn_str = f"DRIVER={{ODBC Driver 18 for SQL Server}};SERVER={self.server};DATABASE={self.database};UID={self.user};PWD={self.password};TrustServerCertificate=yes;"
+            else:
+                conn_str = f"DRIVER={{ODBC Driver 18 for SQL Server}};SERVER={self.server};DATABASE={self.database};Trusted_Connection=yes;TrustServerCertificate=yes;"
             self.connection = pyodbc.connect(conn_str)
             return self.connection
         except Exception as e:
-            raise Exception("Could not connect to the database. Is SQL Server running?")
+            raise Exception(f"Could not connect to the database. Is SQL Server running? Error: {str(e)}")
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         if self.connection:

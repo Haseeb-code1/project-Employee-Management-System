@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="card">
+    <h2>Welcome to the Dashboard, {{ session.get('username') }}!</h2>
+    <p>Role: <strong>{{ session.get('role') }}</strong></p>
+    <p>Use the sidebar to navigate to different modules of the Employee Management System.</p>
+</div>
+{% endblock %}

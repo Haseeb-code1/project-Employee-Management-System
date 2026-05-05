@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-2">
+    <h2>Attendance Records</h2>
+    {% if session.get('role') in ['Admin', 'HR'] %}
+    <button class="btn btn-primary" onclick="toggleForm('addAttForm')">Mark Attendance</button>
+    {% endif %}
+</div>
+
+{% if session.get('role') in ['Admin', 'HR'] %}
+<div id="addAttForm" class="form-container">
+    <h3>Mark Attendance</h3>
+    <form method="POST" action="{{ url_for('create_attendance') }}">
+        <select name="employee_id" required>
+            <option value="" disabled selected>Select Employee</option>
+            {% for emp in employees %}
+            <option value="{{ emp.id }}">{{ emp.name }}</option>
+            {% endfor %}
+        </select>
+        <input type="date" name="date" required>
+        <select name="status" required>
+            <option value="Present">Present</option>
+            <option value="Absent">Absent</option>
+            <option value="Half Day">Half Day</option>
+            <option value="Leave">Leave</option>
+        </select>
+        <button type="submit" class="btn btn-success">Save</button>
+        <button type="button" class="btn btn-danger" onclick="toggleForm('addAttForm')">Cancel</button>
+    </form>
+</div>
+{% endif %}
+
+<div class="card">
+<div class="table-responsive">
+    <table id="attTable">
+        <thead>
+            <tr>
+                <th onclick="sortTable(0, 'attTable')">ID ↕</th>
+                <th onclick="sortTable(1, 'attTable')">Employee Name ↕</th>
+                <th onclick="sortTable(2, 'attTable')">Date ↕</th>
+                <th onclick="sortTable(3, 'attTable')">Status ↕</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for rec in records %}
+            <tr>
+                <td>{{ rec.id }}</td>
+                <td>{{ rec.employee_name }}</td>
+                <td>{{ rec.date }}</td>
+                <td>{{ rec.status }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+</div>
+{% endblock %}

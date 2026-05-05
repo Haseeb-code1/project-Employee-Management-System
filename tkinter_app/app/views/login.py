@@ -15,10 +15,10 @@ class LoginView(ctk.CTkFrame):
         lbl_title = ctk.CTkLabel(center_frame, text='EMS Login', font=('Roboto', 28, 'bold'))
         lbl_title.place(relx=0.5, rely=0.15, anchor='center')
 
-        self.ent_user = ctk.CTkEntry(center_frame, placeholder_text='Username', width=250, height=40)
+        self.ent_user = ctk.CTkEntry(center_frame, fg_color="#add8e6", text_color="black", placeholder_text_color="#444444", placeholder_text='Username', width=250, height=40)
         self.ent_user.place(relx=0.5, rely=0.4, anchor='center')
 
-        self.ent_pass = ctk.CTkEntry(center_frame, placeholder_text='Password', show='*', width=250, height=40)
+        self.ent_pass = ctk.CTkEntry(center_frame, fg_color="#add8e6", text_color="black", placeholder_text_color="#444444", placeholder_text='Password', show='*', width=250, height=40)
         self.ent_pass.place(relx=0.5, rely=0.55, anchor='center')
 
         btn_login = ctk.CTkButton(center_frame, text='Login', command=self.handle_login, width=250, height=40, font=('Roboto', 14, 'bold'))
